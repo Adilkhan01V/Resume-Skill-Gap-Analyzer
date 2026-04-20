@@ -73,45 +73,22 @@ def extract_text(file: UploadFile) -> str:
 
     try:
         if filename.lower().endswith(".pdf"):
-            try:
-                import fitz  # PyMuPDF
-                doc = fitz.open(stream=content, filetype="pdf")
-                lines = []
-                for page in doc:
-                    # Extract as dict to get better line-by-line structure
-                    blocks = page.get_text("dict")["blocks"]
-                    for block in blocks:
-                        if block.get("type") != 0:  # text block
-                            continue
-                        for line_obj in block.get("lines", []):
-                            spans = line_obj.get("spans", [])
-                            line_text = " ".join(s["text"] for s in spans).strip()
-                            if line_text:
-                                lines.append(line_text)
-                doc.close()
-                text = "\n".join(lines)
-            except ImportError:
-                print("[parser] Warning: PyMuPDF (fitz) not installed. Trying fallback...")
-                try:
-                    import pdfplumber
-                    with pdfplumber.open(io.BytesIO(content)) as pdf:
-                        text = "\n".join(p.extract_text() or "" for p in pdf.pages)
-                except ImportError:
-                    print("[parser] Warning: pdfplumber not installed. Trying pypdf...")
-                    try:
-                        from pypdf import PdfReader
-                        reader = PdfReader(io.BytesIO(content))
-                        text = "\n".join(page.extract_text() or "" for page in reader.pages)
-                    except ImportError:
-                        print("[parser] Error: No PDF parser installed (pymupdf, pdfplumber, or pypdf).")
-                        text = ""
-                    except Exception as e:
-                        print(f"[parser] pypdf fallback failed: {e}")
-                        text = ""
-                except Exception as e:
-                    print(f"[parser] pdfplumber fallback failed: {e}")
-                    text = ""
-            
+            import fitz  # PyMuPDF
+            doc = fitz.open(stream=content, filetype="pdf")
+            lines = []
+            for page in doc:
+                # Extract as dict to get better line-by-line structure
+                blocks = page.get_text("dict")["blocks"]
+                for block in blocks:
+                    if block.get("type") != 0:  # text block
+                        continue
+                    for line_obj in block.get("lines", []):
+                        spans = line_obj.get("spans", [])
+                        line_text = " ".join(s["text"] for s in spans).strip()
+                        if line_text:
+                            lines.append(line_text)
+            doc.close()
+            text = "\n".join(lines)
             if not text.strip():
                 print(f"[parser] Warning: No text in PDF {filename}")
 
