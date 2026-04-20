@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Resume Skill Gap Analyzer + Career Assistant
 
 Production-ready monorepo skeleton for an AI-powered resume analysis and career guidance platform.
@@ -58,3 +59,6 @@ No business logic or UI implementation is included yet. This is a structure-only
 - This scaffold intentionally uses placeholder classes and functions.
 - Add tests as modules become implemented.
 - Keep business logic inside services and keep routes thin.
+=======
+# Resume-Skill-Gap-Analyzer
+>>>>>>> 15637c5a63234281f2514da0325d2beb2a102aae
