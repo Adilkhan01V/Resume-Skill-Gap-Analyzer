@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume - {{name}}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            margin: 0.5in;
+            size: A4;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+        .container {
+            width: 100%;
+        }
+        
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .name {
+            font-size: 32pt;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin: 0;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+        .tagline {
+            font-size: 14pt;
+            font-weight: 400;
+            color: #444;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            font-size: 9pt;
+            color: #666;
+            margin-top: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .contact-item svg {
+            width: 12px;
+            height: 12px;
+            fill: #333;
+        }
+
+        /* Section Styling */
+        .section {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 14pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+        .section-separator {
+            border: 0;
+            border-top: 1px solid #999;
+            margin: 20px 0;
+        }
+        
+        /* Content Styling */
+        .about-text {
+            font-size: 10pt;
+            text-align: justify;
+            color: #444;
+        }
+        
+        .item {
+            margin-bottom: 15px;
+        }
+        .item-sub-header {
+            font-size: 10pt;
+            color: #777;
+            margin-bottom: 2px;
+            font-weight: 400;
+        }
+        .item-main-header {
+            font-size: 11pt;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+        .item-description {
+            font-size: 10pt;
+            color: #444;
+            margin-bottom: 5px;
+        }
+        .item-bullets {
+            margin: 5px 0;
+            padding-left: 20px;
+            list-style-type: disc;
+        }
+        .item-bullets li {
+            font-size: 10pt;
+            color: #444;
+            margin-bottom: 2px;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            font-size: 10pt;
+            color: #333;
+        }
+        .skill-col {
+            flex: 0 0 33.33%;
+            margin-bottom: 8px;
+        }
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .bullet-point {
+            width: 4px;
+            height: 4px;
+            background-color: #333;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* Helpers */
+        .uppercase { text-transform: uppercase; }
+        .bold { font-weight: 700; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="name">{{name}}</h1>
+            <div class="tagline">{{tagline}}</div>
+            
+            <div class="contact-info">
+                {% if phone or contact %}
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/></svg>
+                    <span>{{phone or contact.split('|')[0].strip()}}</span>
+                </div>
+                {% endif %}
+                
+                {% if email or contact %}
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24"><path d="M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.11,4 20,4M20,8L12,13L4,8V6L12,11L20,6V8Z"/></svg>
+                    <span>{{email or (contact.split('|')[1].strip() if '|' in contact else '')}}</span>
+                </div>
+                {% endif %}
+
+                {% if location or contact %}
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24"><path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"/></svg>
+                    <span>{{location or (contact.split('|')[2].strip() if contact.count('|') >= 2 else '')}}</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- About Me -->
+        {% if summary %}
+        <div class="section">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-text">{{summary}}</div>
+        </div>
+        <hr class="section-separator">
+        {% endif %}
+
+        <!-- Education -->
+        {% if education %}
+        <div class="section">
+            <h2 class="section-title">Education</h2>
+            {% for edu in education %}
+            <div class="item">
+                <div class="item-sub-header">{{edu.school or edu.institution}} | {{edu.duration or edu.dates}}</div>
+                <div class="item-main-header">{{edu.degree or edu.qualification}}</div>
+                {% if edu.description %}
+                <div class="item-description">{{edu.description}}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <hr class="section-separator">
+        {% endif %}
+
+        <!-- Experience -->
+        {% if experience %}
+        <div class="section">
+            <h2 class="section-title">Work Experience</h2>
+            {% for exp in experience %}
+            <div class="item">
+                <div class="item-sub-header">{{exp.company or exp.organization}} | {{exp.duration or exp.dates}}</div>
+                <div class="item-main-header">{{exp.role or exp.job_title}}</div>
+                
+                {% if exp.bullets %}
+                <ul class="item-bullets">
+                    {% for bullet in exp.bullets %}
+                    <li>{{bullet}}</li>
+                    {% endfor %}
+                </ul>
+                {% elif exp.description %}
+                <div class="item-description">{{exp.description}}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <hr class="section-separator">
+        {% endif %}
+
+        <!-- Projects -->
+        {% if projects %}
+        <div class="section">
+            <h2 class="section-title">Projects</h2>
+            {% for proj in projects %}
+            <div class="item">
+                <div class="item-sub-header">{{proj.date}}</div>
+                <div class="item-main-header">{{proj.name}}</div>
+                
+                {% if proj.bullets %}
+                <ul class="item-bullets">
+                    {% for bullet in proj.bullets %}
+                    <li>{{bullet}}</li>
+                    {% endfor %}
+                </ul>
+                {% elif proj.description %}
+                <div class="item-description">{{proj.description}}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <hr class="section-separator">
+        {% endif %}
+
+        <!-- Skills -->
+        {% if skills %}
+        <div class="section">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-grid">
+                {% for skill in skills %}
+                <div class="skill-col">
+                    <div class="skill-item">
+                        <span class="bullet-point"></span>
+                        <span>{{skill}}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

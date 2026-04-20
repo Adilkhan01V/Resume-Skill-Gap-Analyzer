@@ -1,0 +1,193 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg: 10 10 18;
+    --color-card: 18 18 32;
+    --color-primary: 124 58 237;
+    --color-secondary: 59 130 246;
+    --color-accent: 34 211 238;
+    --color-text: 229 231 235;
+    --color-muted: 148 163 184;
+    --color-border: 31 41 55;
+  }
+
+  [data-theme="light"] {
+    --color-bg: 248 250 252;
+    --color-card: 255 255 255;
+    --color-primary: 109 40 217;
+    --color-secondary: 37 99 235;
+    --color-accent: 6 182 212;
+    --color-text: 17 24 39;
+    --color-muted: 100 116 139;
+    --color-border: 203 213 225;
+  }
+
+  body {
+    background-color: rgb(var(--color-bg));
+    color: rgb(var(--color-text));
+    margin: 0;
+    min-height: 100vh;
+    font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* Custom Scrollbar Styles */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* For Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+  }
+}
+
+@layer components {
+  .surface-card {
+    border-radius: 1rem;
+    border: 1px solid rgb(var(--color-border) / 0.8);
+    background-color: rgb(var(--color-card));
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .surface-card:hover {
+    border-color: rgb(var(--color-primary) / 0.4);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3), 0 0 15px rgb(var(--color-primary) / 0.1);
+    transform: translateY(-2px);
+  }
+
+  /* Glassmorphism Effects */
+  .glass-panel {
+    background: rgba(var(--color-card), 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  /* Premium Gradients */
+  .grad-primary {
+    background: linear-gradient(135deg, rgb(var(--color-primary)), rgb(var(--color-secondary)));
+  }
+
+  .grad-glow {
+    position: relative;
+  }
+
+  .grad-glow::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, rgb(var(--color-primary) / 0.5), rgb(var(--color-accent) / 0.5));
+    filter: blur(8px);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .grad-glow:hover::after {
+    opacity: 1;
+  }
+
+  /* TipTap Editor Styles */
+  .ProseMirror {
+    outline: none;
+    min-height: 100px;
+  }
+
+  .ProseMirror p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    color: #adb5bd;
+    pointer-events: none;
+    height: 0;
+  }
+
+  /* Diff Highlighting */
+  .diff-added {
+    background-color: rgba(34, 197, 94, 0.2);
+    border-bottom: 2px solid rgb(34, 197, 94);
+  }
+
+  .diff-removed {
+    background-color: rgba(239, 68, 68, 0.1);
+    text-decoration: line-through;
+    color: rgba(239, 68, 68, 0.6);
+  }
+
+  .diff-modified {
+    background-color: rgba(59, 130, 246, 0.2);
+    border-bottom: 2px solid rgb(59, 130, 246);
+  }
+
+  /* Resume Document Template Styles */
+  .resume-document {
+    font-family: serif;
+    color: #222;
+    line-height: 1.6;
+    background-color: white;
+  }
+
+  .resume-document h1 {
+    font-size: 24pt;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+  }
+
+  .resume-document .contact-info {
+    font-size: 10pt;
+    color: #666;
+    text-align: center;
+    margin-top: 5px;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+
+  .resume-document h2 {
+    font-size: 14pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 1px solid #ccc;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  .resume-document p {
+    font-size: 10pt;
+    margin-bottom: 10px;
+  }
+
+  .resume-document ul {
+    font-size: 10pt;
+    padding-left: 20px;
+    list-style-type: disc;
+    margin-bottom: 10px;
+  }
+
+  .resume-document li {
+    margin-bottom: 4px;
+    display: list-item;
+  }
+}
