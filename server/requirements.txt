@@ -4,9 +4,9 @@ pydantic
 pydantic-settings
 python-dotenv
 python-multipart
-pdfplumber
-pymupdf
+# pdfplumber
+# pymupdf
 python-docx
 google-generativeai
-weasyprint
+# weasyprint
 xhtml2pdf
