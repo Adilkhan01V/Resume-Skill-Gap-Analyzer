@@ -11,3 +11,4 @@ python-docx
 google-generativeai
 # weasyprint
 xhtml2pdf
+python-bidi<0.6.0
