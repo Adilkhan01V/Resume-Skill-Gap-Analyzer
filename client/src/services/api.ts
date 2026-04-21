@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "/api/v1";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "https://resume-skill-gap-analyzer-1.onrender.com/api/v1";
 
 export const analyzeResume = async (file: File, jobDescription: string) => {
   const formData = new FormData();

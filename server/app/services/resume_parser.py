@@ -73,24 +73,30 @@ def extract_text(file: UploadFile) -> str:
 
     try:
         if filename.lower().endswith(".pdf"):
-            import fitz  # PyMuPDF
-            doc = fitz.open(stream=content, filetype="pdf")
-            lines = []
-            for page in doc:
-                # Extract as dict to get better line-by-line structure
-                blocks = page.get_text("dict")["blocks"]
-                for block in blocks:
-                    if block.get("type") != 0:  # text block
-                        continue
-                    for line_obj in block.get("lines", []):
-                        spans = line_obj.get("spans", [])
-                        line_text = " ".join(s["text"] for s in spans).strip()
-                        if line_text:
-                            lines.append(line_text)
-            doc.close()
-            text = "\n".join(lines)
+            try:
+                import fitz  # PyMuPDF
+                doc = fitz.open(stream=content, filetype="pdf")
+                lines = []
+                for page in doc:
+                    blocks = page.get_text("dict")["blocks"]
+                    for block in blocks:
+                        if block.get("type") != 0:  # text block
+                            continue
+                        for line_obj in block.get("lines", []):
+                            spans = line_obj.get("spans", [])
+                            line_text = " ".join(s["text"] for s in spans).strip()
+                            if line_text:
+                                lines.append(line_text)
+                doc.close()
+                text = "\n".join(lines)
+            except ImportError:
+                print("[parser] PyMuPDF not found, trying pdfplumber fallback")
+                import pdfplumber
+                with pdfplumber.open(io.BytesIO(content)) as pdf:
+                    text = "\n".join(page.extract_text() or "" for page in pdf.pages)
+
             if not text.strip():
-                print(f"[parser] Warning: No text in PDF {filename}")
+                print(f"[parser] Warning: No text extracted from PDF {filename}")
 
         elif filename.lower().endswith((".docx", ".doc")):
             import docx
@@ -102,11 +108,7 @@ def extract_text(file: UploadFile) -> str:
 
     except Exception as e:
         print(f"[parser] Error parsing {filename}: {e}")
-        if filename.lower().endswith((".pdf", ".docx", ".doc")):
-            # Fallback: raw byte decode
-            text = content.decode("utf-8", errors="ignore")
-        else:
-            text = content.decode("utf-8", errors="ignore")
+        text = ""  # Return empty instead of raw binary garbage
 
     return text.strip()
 

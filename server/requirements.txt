@@ -6,9 +6,9 @@ requests==2.31.0
 pydantic==2.6.4
 pydantic-settings
 python-dotenv
-# pdfplumber
-# pymupdf
+pdfplumber
+pymupdf
 python-docx
 google-generativeai
-# weasyprint
+weasyprint
 xhtml2pdf
