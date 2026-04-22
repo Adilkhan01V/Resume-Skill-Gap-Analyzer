@@ -16,17 +16,6 @@
     --color-secondary-rgb: 59, 130, 246;
   }
 
-  [data-theme="light"] {
-    --color-bg: 248 250 252;
-    --color-card: 255 255 255;
-    --color-primary: 109 40 217;
-    --color-secondary: 37 99 235;
-    --color-accent: 6 182 212;
-    --color-text: 17 24 39;
-    --color-muted: 100 116 139;
-    --color-border: 203 213 225;
-  }
-
   body {
     background-color: rgb(var(--color-bg));
     color: rgb(var(--color-text));

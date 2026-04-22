@@ -13,18 +13,21 @@ type ThemeProviderProps = {
 };
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [mode, setMode] = useState<ThemeMode>(THEME_CONFIG.defaultMode);
+  // Application is now locked to dark mode
+  const [mode] = useState<ThemeMode>("dark");
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", mode);
-  }, [mode]);
+    document.documentElement.setAttribute("data-theme", "dark");
+  }, []);
 
   const value = useMemo(
     () => ({
-      mode,
-      toggleTheme: () => setMode((prev) => (prev === "dark" ? "light" : "dark"))
+      mode: "dark" as ThemeMode,
+      toggleTheme: () => {
+        console.log("Theme toggling is disabled. System is locked to Dark Mode.");
+      }
     }),
-    [mode]
+    []
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

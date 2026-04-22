@@ -1,5 +1,4 @@
 import { Link, useLocation } from "react-router-dom";
-import { ThemeToggle } from "./ThemeToggle";
 
 export function Navbar() {
   const { pathname } = useLocation();
@@ -39,8 +38,10 @@ export function Navbar() {
           ))}
         </div>
 
-        {/* Right: Theme Toggle */}
-        <ThemeToggle />
+        {/* Right: Actions */}
+        <div className="flex items-center gap-2">
+          {/* Theme toggling removed by user request — locking to Dark Mode */}
+        </div>
       </div>
     </header>
   );
