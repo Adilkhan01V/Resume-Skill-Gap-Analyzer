@@ -116,15 +116,26 @@ export function ResumeEditorPanel({
         <button
           onClick={onImprove}
           disabled={isImproving || !onImprove}
-          className="flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-semibold rounded-lg bg-gradient-to-r from-primary/20 to-secondary/20 hover:from-primary/30 hover:to-secondary/30 text-primary border border-primary/30 transition-all disabled:opacity-40"
+          className={`group/btn relative flex items-center gap-2 px-4 py-1.5 text-[11px] font-bold rounded-full overflow-hidden transition-all active:scale-95 disabled:opacity-50 ${
+            isImproving 
+              ? "bg-bg border border-border cursor-not-allowed" 
+              : "bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_100%] animate-gradient-shift text-white shadow-[0_0_15px_rgba(var(--color-primary-rgb),0.3)] hover:shadow-[0_0_25px_rgba(var(--color-primary-rgb),0.5)] border-none"
+          }`}
         >
+          {/* Shine effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:animate-shine" />
+          
           {isImproving ? (
             <>
-              <div className="w-3 h-3 border-[1.5px] border-primary/30 border-t-primary rounded-full animate-spin"></div>
-              Improving…
+              <div className="w-3 h-3 border-[1.5px] border-primary/30 border-t-primary rounded-full animate-spin" />
+              <span>Optimizing…</span>
             </>
           ) : (
-            <>✨ Improve with AI</>
+            <>
+              <span className="text-sm">✨</span>
+              <span>Improve with AI</span>
+              <span className="ml-1 opacity-0 group-hover/btn:opacity-100 transition-opacity -translate-x-2 group-hover/btn:translate-x-0 duration-300">→</span>
+            </>
           )}
         </button>
 

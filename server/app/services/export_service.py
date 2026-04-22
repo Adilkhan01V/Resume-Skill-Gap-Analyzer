@@ -58,8 +58,8 @@ def format_experience(experience_data: List[Any]) -> List[Dict[str, Any]]:
         duration = exp.get("duration") or exp.get("dates") or f"{exp.get('start_date', '')} - {exp.get('end_date', 'Present')}"
         location = exp.get("location", "")
         
-        # Handle bullets (could be 'description' as string or 'bullets' as list)
-        bullets = exp.get("bullets") or []
+        # Handle bullets (could be 'description' as string or 'bullets'/'points' as list)
+        bullets = exp.get("bullets") or exp.get("points") or []
         if not bullets and exp.get("description"):
             desc = exp.get("description")
             if isinstance(desc, list):

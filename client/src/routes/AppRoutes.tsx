@@ -4,7 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { LandingPage } from "../pages/LandingPage";
 import { DashboardPage } from "../pages/DashboardPage";
 import { EditorPage } from "../pages/EditorPage";
-import { JobsPage } from "../pages/JobsPage";
+import { HistoryPage } from "../pages/HistoryPage";
 import { AppLayout } from "../components/layout/AppLayout";
 import { useLocation } from "react-router-dom";
 
@@ -53,10 +53,10 @@ export function AppRoutes() {
             }
           />
           <Route
-            path="/jobs"
+            path="/history"
             element={
               <PageTransition>
-                <JobsPage />
+                <HistoryPage />
               </PageTransition>
             }
           />

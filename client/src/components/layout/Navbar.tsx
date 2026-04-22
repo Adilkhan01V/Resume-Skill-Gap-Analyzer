@@ -23,7 +23,7 @@ export function Navbar() {
           {[
             { href: "/", label: "Home" },
             { href: "/dashboard", label: "Dashboard" },
-            { href: "/jobs", label: "Jobs" }
+            { href: "/history", label: "History" }
           ].map((item) => (
             <Link
               key={item.href}

@@ -1,9 +1,13 @@
 import { DashboardLayout } from "../components/layout/DashboardLayout";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export function DashboardPage() {
   const location = useLocation();
+  const [sessionData, setSessionData] = useState<any>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+
   const state = location.state as {
     resumeData?: any;
     scoreData?: any;
@@ -11,7 +15,25 @@ export function DashboardPage() {
     roleTitle?: string;
   } | null;
 
-  if (!state || !state.resumeData || !state.scoreData) {
+  useEffect(() => {
+    if (!state?.resumeData) {
+      const saved = sessionStorage.getItem("last_resume_session");
+      if (saved) {
+        try {
+          setSessionData(JSON.parse(saved));
+        } catch (e) {
+          console.error("Failed to load session", e);
+        }
+      }
+    } else {
+      setSessionData(state);
+    }
+    setIsLoaded(true);
+  }, [state]);
+
+  if (!isLoaded) return null;
+
+  if (!sessionData || !sessionData.resumeData || !sessionData.scoreData) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4 px-4 text-center">
         <div className="text-4xl">⚠️</div>
@@ -34,9 +56,10 @@ export function DashboardPage() {
       className="h-full"
     >
       <DashboardLayout 
-        resumeData={state.resumeData} 
-        scoreData={state.scoreData} 
-        jdText={state.rawJd} 
+        resumeData={sessionData.resumeData} 
+        scoreData={sessionData.scoreData} 
+        jdText={sessionData.rawJd || sessionData.jdText} 
+        historyId={sessionData.historyId}
       />
     </motion.div>
   );

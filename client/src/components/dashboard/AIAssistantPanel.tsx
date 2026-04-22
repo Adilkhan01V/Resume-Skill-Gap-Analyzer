@@ -150,9 +150,6 @@ export function AIAssistantPanel({
                 animate={{ opacity: 1, y: 0 }}
                 className="relative p-5 rounded-2xl bg-primary/5 border border-primary/20 overflow-hidden group"
               >
-                <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
-                  <span className="text-4xl">🤖</span>
-                </div>
                 <h4 className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
                    <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                    AI Analysis Executive Summary

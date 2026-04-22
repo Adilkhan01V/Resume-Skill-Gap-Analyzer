@@ -6,6 +6,7 @@ import { Card } from "../components/common/Card";
 import { SectionHeader } from "../components/common/SectionHeader";
 import { AnalysisLoadingOverlay } from "../components/common/AnalysisLoadingOverlay";
 import { analyzeResume, getScore } from "../services/api";
+import { storage } from "../services/storage";
 
 const TypewriterText = ({ text }: { text: string }) => {
   const [displayedText, setDisplayedText] = useState("");
@@ -194,13 +195,22 @@ export function LandingPage() {
       setCurrentAnalysisStep(5);
       await new Promise(r => setTimeout(r, 1000));
       
+      // Save to history for persistence
+      const historyItem = storage.saveResume({
+        resumeData,
+        scoreData,
+        jdText: role.description,
+        roleTitle: role.label
+      });
+      
       // Navigate only after BOTH promises resolve successfully
       navigate('/dashboard', { 
         state: { 
           resumeData, 
           scoreData, 
           rawJd: role.description,
-          roleTitle: role.label
+          roleTitle: role.label,
+          historyId: historyItem.id
         } 
       });
     } catch (err: any) {
