@@ -11,16 +11,22 @@ import { storage } from "../../services/storage";
 export function DashboardLayout({ 
   resumeData: initialResume, 
   scoreData: initialScore, 
+  improvedResume: initialImprovedResume,
+  aiData: initialAiData,
+  activeResume: initialActiveResume,
   jdText,
   historyId 
 }: { 
   resumeData: any, 
   scoreData: any, 
+  improvedResume?: any,
+  aiData?: any,
+  activeResume?: 'original' | 'improved',
   jdText?: string,
   historyId?: string
 }) {
   const [jobMatches, setJobMatches] = useState<any[]>([]);
-
+  
   const {
     originalResume,
     improvedResume,
@@ -34,13 +40,22 @@ export function DashboardLayout({
     setAiData,
     setIsImproving,
     setScoreData,
-  } = useDashboardState(initialResume, initialScore);
+  } = useDashboardState(
+    initialResume, 
+    initialScore, 
+    initialImprovedResume, 
+    initialAiData, 
+    initialActiveResume
+  );
 
   // Persistence logic
   useEffect(() => {
     const dataToSave = {
       resumeData: originalResume || initialResume,
       scoreData: scoreData || initialScore,
+      improvedResume,
+      aiData,
+      activeResume,
       jdText,
       historyId,
     };
@@ -52,9 +67,12 @@ export function DashboardLayout({
       storage.updateResume(historyId, {
         resumeData: dataToSave.resumeData,
         scoreData: dataToSave.scoreData,
+        improvedResume,
+        aiData,
+        activeResume
       });
     }
-  }, [originalResume, scoreData, initialResume, initialScore, jdText, historyId]);
+  }, [originalResume, scoreData, initialResume, initialScore, jdText, historyId, improvedResume, aiData, activeResume]);
 
   useEffect(() => {
     if (initialResume && jdText) {

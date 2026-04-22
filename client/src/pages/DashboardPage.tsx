@@ -58,6 +58,9 @@ export function DashboardPage() {
       <DashboardLayout 
         resumeData={sessionData.resumeData} 
         scoreData={sessionData.scoreData} 
+        improvedResume={sessionData.improvedResume}
+        aiData={sessionData.aiData}
+        activeResume={sessionData.activeResume}
         jdText={sessionData.rawJd || sessionData.jdText} 
         historyId={sessionData.historyId}
       />

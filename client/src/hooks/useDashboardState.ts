@@ -56,13 +56,19 @@ export interface AIDashboardState {
   isScoring: boolean;
 }
 
-export function useDashboardState(initialResume?: ResumeData, initialScore?: ScoreData) {
+export function useDashboardState(
+  initialResume?: ResumeData, 
+  initialScore?: ScoreData,
+  initialImprovedResume?: ResumeData | null,
+  initialAiData?: any,
+  initialActiveResume?: 'original' | 'improved'
+) {
   const [state, setState] = useState<AIDashboardState>({
     originalResume: initialResume || null,
-    improvedResume: null,
-    activeResume: 'original',
+    improvedResume: initialImprovedResume || null,
+    activeResume: initialActiveResume || 'original',
     scoreData: initialScore || null,
-    aiData: null,
+    aiData: initialAiData || null,
     isImproving: false,
     isScoring: false,
   });

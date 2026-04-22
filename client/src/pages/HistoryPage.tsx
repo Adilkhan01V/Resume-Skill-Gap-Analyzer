@@ -17,8 +17,12 @@ export function HistoryPage() {
       state: { 
         resumeData: item.resumeData, 
         scoreData: item.scoreData, 
+        improvedResume: item.improvedResume,
+        aiData: item.aiData,
+        activeResume: item.activeResume,
         rawJd: item.jdText,
-        roleTitle: item.roleTitle 
+        roleTitle: item.roleTitle,
+        historyId: item.id
       } 
     });
   };

@@ -6,6 +6,9 @@ export interface ResumeHistoryItem {
   timestamp: number;
   resumeData: any;
   scoreData: any;
+  improvedResume?: any;
+  aiData?: any;
+  activeResume?: 'original' | 'improved';
   jdText?: string;
   roleTitle?: string;
 }

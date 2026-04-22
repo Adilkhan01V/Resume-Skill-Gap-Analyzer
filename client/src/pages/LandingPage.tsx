@@ -142,19 +142,8 @@ export function LandingPage() {
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setFile(e.target.files[0]);
-      setFileStatus("uploading");
-      setUploadProgress(0);
-      
-      const interval = setInterval(() => {
-        setUploadProgress(prev => {
-          if (prev >= 100) {
-            clearInterval(interval);
-            setFileStatus("success");
-            return 100;
-          }
-          return prev + 15;
-        });
-      }, 250);
+      setFileStatus("success");
+      setUploadProgress(100);
     }
   };
 
@@ -168,32 +157,20 @@ export function LandingPage() {
     
     try {
       setFileStatus("analyzing");
-      setCurrentAnalysisStep(0);
-      
-      // Step 0: Reading resume
-      await new Promise(r => setTimeout(r, 800));
       setCurrentAnalysisStep(1);
       
-
-      // Step 1: Analysis engine (extracting skills)
+      // Step 1: Analysis engine (extracting skills) - REAL API CALL
       const resumeData = await analyzeResume(file, role.description);
-
       
       setCurrentAnalysisStep(2);
-      await new Promise(r => setTimeout(r, 600));
       
       // Step 3: Checking JD requirements
       setCurrentAnalysisStep(3);
 
-      // Step 4: Scoring engine
+      // Step 4: Scoring engine - REAL API CALL
       const scoreData = await getScore(resumeData, role.description);
-
-      
-      setCurrentAnalysisStep(4);
-      await new Promise(r => setTimeout(r, 800));
       
       setCurrentAnalysisStep(5);
-      await new Promise(r => setTimeout(r, 1000));
       
       // Save to history for persistence
       const historyItem = storage.saveResume({
@@ -203,7 +180,7 @@ export function LandingPage() {
         roleTitle: role.label
       });
       
-      // Navigate only after BOTH promises resolve successfully
+      // Navigate immediately
       navigate('/dashboard', { 
         state: { 
           resumeData, 
