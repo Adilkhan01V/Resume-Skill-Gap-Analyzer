@@ -2,7 +2,7 @@
 
 **Optimize your career journey with AI-powered insights, real-time scoring, and intelligent resume enhancements.**
 
-[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen.svg)](https://resume-skill-gap.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen.svg)](https://resume-skill-gap-analyzer-silk.vercel.app/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ## ✨ Overview
@@ -92,7 +92,7 @@ The **AI Resume Skill Gap Analyzer** is a sophisticated career assistant designe
 ---
 
 ## 🌐 Live Link
-Access the application here: [https://resume-skill-gap.vercel.app/](https://resume-skill-gap.vercel.app/)
+Access the application here: [https://resume-skill-gap-analyzer-silk.vercel.app/](https://resume-skill-gap-analyzer-silk.vercel.app/)
 
 ## 📄 License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
